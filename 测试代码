@@ -1,0 +1,198 @@
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+#include<string.h>
+
+int get_first(int year,int month)
+{
+	static int mtab[]={0,3,2,5,0,3,5,1,4,6,2,4};
+	if(month<3)
+	{
+		year--;
+	}
+	int week = (year+year/4-year/100+year/400+mtab[month-1]+1)%7;
+	if(week==0)
+	{
+		return 7;
+	}
+	else
+	{
+		return week;
+	}
+}
+
+const char* English(int n)
+{
+	switch (n)
+	{
+	case 1:return("January");
+		break;
+	case 2:return("February");
+		break;
+	case 3:return("March");
+		break;
+	case 4:return("April");
+		break;
+	case 5:return("May");
+		break;
+	case 6:return("June");
+		break;
+	case 7:return("July");
+		break;
+	case 8:return("August");
+		break;
+	case 9:return("September");
+		break;
+	case 10:return("October");
+		break;
+	case 11:return("November");
+		break;
+	case 12:return("December");
+		break;
+	}
+}
+
+int Months(int month)
+{
+	switch (month)
+	{
+	case 1:
+	case 3:
+	case 5:
+	case 7:
+	case 8:
+	case 10:
+	case 12:return 31;
+		break;
+	case 6:
+	case 9:
+	case 4:
+	case 11:return 30;
+		break;
+	case 2:return 28;
+		break;
+	}
+}
+
+void Calender(int month,int year)
+{
+	printf("\t\t%s %d",English(month),year);
+	printf("\n");
+	printf("Sun\tTue\tWes\tThu\tFri\tSat\tMon");
+	printf("\n");
+	int week;
+	week=get_first(year,month);
+	int p=1;
+	for(p;p<=week;p++)
+	{
+		printf("\t");
+	}
+	int q=1;
+	for(q;q<=Months(month);q++)
+	{
+		printf("%d\t",q);
+		if((week+q)%7==0)
+		{
+			printf("\n");
+		}
+	}
+}
+
+int main()
+{
+	int year;
+	int month;
+	printf("输入你的年份及月份（格式：2024-8）：");
+	scanf("%d-%d",&year,&month);
+	system("cls");
+	Calender(month,year);
+	printf("\n\n");
+	printf("(*)Press↑and↓to switch the year.\n");
+	printf("(*)Press←and→to switch the months.\n");
+	printf("(*)Press P to go to particular year and month.\n");
+	printf("(*)Press ESC to exit.\n");
+	while (1)
+	{
+		int n = _getch();
+		if (n == 72)
+		{
+			year--;
+			system("cls");
+			Calender(month,year);
+			printf("\n\n");
+			printf("(*)Press↑and↓to switch the year.\n");
+			printf("(*)Press←and→to switch the months.\n");
+			printf("(*)Press P to go to particular year and month.\n");
+			printf("(*)Press ESC to exit.\n");
+		}
+		if (n == 80)
+		{
+			year++;
+			system("cls");
+			Calender(month,year);
+			printf("\n\n");
+			printf("(*)Press↑and↓to switch the year.\n");
+			printf("(*)Press←and→to switch the months.\n");
+			printf("(*)Press P to go to particular year and month.\n");
+			printf("(*)Press ESC to exit.\n");
+		}
+		if (n == 75)
+		{
+			if(month==1)
+			{
+				month=12;
+				year--;
+			}
+			else
+			{
+				month--;
+			}
+			system("cls");
+			Calender(month,year);
+			printf("\n\n");
+			printf("(*)Press↑and↓to switch the year.\n");
+			printf("(*)Press←and→to switch the months.\n");
+			printf("(*)Press P to go to particular year and month.\n");
+			printf("(*)Press ESC to exit.\n");
+		}
+		if (n == 77)
+		{
+			if(month==12)
+			{
+				month=1;
+				year++;
+			}
+			else
+			{
+				month++;
+			}
+			system("cls");
+			Calender(month,year);
+			printf("\n\n");
+			printf("(*)Press↑and↓to switch the year.\n");
+			printf("(*)Press←and→to switch the months.\n");
+			printf("(*)Press P to go to particular year and month.\n");
+			printf("(*)Press ESC to exit.\n");
+		}
+		if (n == 27)
+		{
+			return 0;
+		}
+		if (n == 80 || n == 112)
+		{
+			system("cls");
+			int year;
+			int month;
+			printf("输入你的年份及月份（格式：2024-8）：");
+			scanf("%d-%d",&year,&month);
+			system("cls");
+			Calender(month,year);
+			printf("\n\n");
+			printf("(*)Press↑and↓to switch the year.\n");
+			printf("(*)Press←and→to switch the months.\n");
+			printf("(*)Press P to go to particular year and month.\n");
+			printf("(*)Press ESC to exit.\n");
+		}
+	}
+}
+
